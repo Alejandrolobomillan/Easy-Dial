@@ -1,0 +1,65 @@
+//Hem escollit per implementar la nostra classe call_registry un arbre equilibrat AVL, BST és la primera estructura de dades que vam pensar per implementar la classe i la creiem adient per les dades,finalment vam escollir AVL perquè en BST podríem tenir un arbre degenerat que no compliria els costos de requisit en funció de temps, l'AVL a l'estar equilibrat els costos per fer cerques ens quedarien com log n.
+//En costos espacials ambdues implementacions tindrien el mateix cost.
+//Vam pensar també algunes idees d'implementació de la classe amb taules de hash, però finalment ens vam decidir AVL perquè en implementar en taula de hash sí que el cost d'espai pot ser més eficient, però, hauríem de pensar a controlar les possibles col·lisions i ens afegia més dificultats al problema. Amb AVL aconseguíem una implementació senzilla amb un bon cost espacial i un bon cost temporal.
+
+struct node {
+	node* f_esq;
+	node* f_dret;
+	phone _contacte;
+	int _altura;
+};
+node* _arrel;
+nat _mida;
+
+
+//pre: cert 
+//post: Si n és nullptr, el resultat és nullptr sinó, el resultat apunta al primer node,
+//d'un arbre binari de nodes que són còpia de l'arbre apuntat per n
+static node* copiaNodes(node* n);
+
+//pre: cert 
+//post: No fa res si n és nullptr, en cas contrari, allibera espai dels nodes
+//de l'arbre binari apuntat per n
+static void esborraNodes(node* n);
+
+//pre: cert 
+//post: No fa res si n és nullptr, en cas contrari, retorna la quantitat de nodes
+//de l'arbre binari 
+static nat comptaNodes(node* n);
+
+//pre: cert 
+//post: Si el numero num es trobat a un node del arbre numero == num, retorna el
+//el node, en cas contrari, retorna nullptr
+static node* busca_numero(node* n, nat num);
+
+//pre: cert 
+//post: Si el numero num es trobat a un node del arbre elimina el node, allibera la memoria i 
+//equilibra l'arbre, si no es troba el num no modifica
+static node* elimina_contacte(node* n, nat num);
+
+//pre: cert 
+//post: Omple el vector de phone amb els phones de l'arbre que no tenen nom buit
+void bolcat(vector<phone>& V, node* n) const throw(error);
+
+//pre: cert 
+//post: A afegit un node que conté un phone al call_registry i equilibra l'arbre
+static node* afegeix_contacte(node* n, phone p);
+
+//pre: cert 
+//post: Si n = nullptr retorna 0, en cas contrari retorna l'altura del node
+static int altura(node* n);
+
+//pre: cert 
+//post: Si n = nullptr retorna 0, en cas contrari retorna el factor de equilibri com a 
+//resta de l'altura del fill esquerre i fill dret
+static int factor_equilibri(node* n);
+
+//pre: cert 
+//post: La funció realitza una rotació cap a la dreta al subarbre amb arrel al node y,
+//retorna un punter al nou node a la posició de l'arrel del subarbre postrotació
+static node* rotacio_dreta(node* y);
+
+//pre: cert 
+//post: La funció realitza una rotació cap a l'esquerra al subarbre amb arrel al node x,
+//retorna un punter al nou node a la posició de l'arrel del subarbre postrotació
+static node* rotacio_esquerra(node* x);
