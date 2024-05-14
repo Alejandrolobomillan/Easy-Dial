@@ -1,0 +1,56 @@
+//Hem escollit un tst per representar els nodes i facilitar les busquedas, per asegurar el cost constant en les operacions que es demanava
+//i intentar optimizar en espail, hem utilitzat 2 arrays, un per mantenir tots els phones del eeasy dial, i a l'arbre nomes tenir les referencies
+//i un altre que omplirem amb els phones que el programa retorna fent les operacions de seguent i inici.
+//Altres opcions que vam tenir en compte eren arbres digitals com els vists a clase, configuracio de primerfill seguent germa,
+// o arbre n-aris(vector de punters per node), aquesta ultima la vam descartar per costos espacials, ja que tindirem molts punters a per a result
+// la configuracio de primer fill seguent germa no era dolenta en gestio d'espai, pero enssembla mes adient un TST, ja que haurem de buscar en l'estructura.
+// Dins la configuracio de TST, es podria haber utulitzat phones als nodes, pero ens semblava mes memoria que guardar una referncia en ells,per accedir al nostre array.
+
+struct node {
+	node* f_esq;
+	node* f_dret;
+	node* f_cen;
+	int _referencia; 
+	char _lletra; 
+};
+node* _arrel;
+string _prefix_curs;
+bool _iniciat;
+phone* _telefons;
+phone* _visitats;
+int _referencia_maxima;
+int _it;
+int _itv;
+bool _noprefix;
+int _freq_total;
+
+
+//PRE:cert
+//POST: contrueix un arbre copia, de l'arbre d'arrel n
+static node* copiaNodes(node* n);
+
+//PRE:cert
+//POST:s'han esborrats tots els nodes de l'arbre que tenia n com arrel.
+static void esborraNodes(node* n);
+
+//PRE:cert
+//POST: Insereix al parametre implicit el nom corresponent a la seva posicio de l'arbre.
+void insereix(const string &nom, int ref);
+//PRE:cert
+//POST: construeix a partir del node n tots els nodes que genera la paraula nom, i fica la referencia 
+//en el moment en el que troba que ha inserit o recorregut un node sense referencia que representa aquella paraula.
+static node* rinsereix(node* n, nat i, string nom, int ref);
+//PRE:cert
+//POST:retorna la refeencia al array on podem trobar el nom de maxima frequencia que busquem segons el prefix
+// o -1 en cas de no trobar-ho.
+static int troba_prefix(node* n, string prefix);
+//PRE:cert
+//POST:result conte tots els noms de del easy dial que comencen pel prefix original
+void omple_vector(node* n,vector<string>& result,string& prefix,const string pref_original) const;
+//PRE:cert
+//POST:si el nom conte en prefix, retorna true, en cualsevol altre cas retorna false
+static bool conte_prefix(const string &pref,const string &nom);
+//PRE:cert
+//POST:retorna el calcul de la longitud mitjana de tots els nodes amb referencia
+double suma_long(node* n,double h) const;
+
