@@ -1,1 +1,1 @@
-# Easy-Dial
+# EasyDial
